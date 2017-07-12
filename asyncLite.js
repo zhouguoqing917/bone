@@ -6,22 +6,16 @@
  * async.waterfall(tasks, [callback]) （多个函数依次执行，且前一个的输出为后一个的输入）
  * async.auto(tasks, [callback]) （多个函数有依赖关系，有的并行执行，有的依次执行）
  * async.whilst(test,function,callback);可用于异步调用while,相当于while，异步调用将在完成后才会进行下一次循环。
- */
-
-(function (svp,factory) {
-    svp.async = factory();
-    svp.define('base/asyncLite', function (require, exports, module) {
-        module.exports = svp.async;
-    });
-}(window.svp||{},function () {
+ */ 
+(function (Bone,factory) {
+    Bone.async = factory();
+}(window.Bone||{},function () {
     var async = {};
     async._version = '1.5.2 lite';
-    function noop() { }
-
+    function noop() { } 
     function identity(v) {
         return v;
-    }
-
+    } 
     var previous_async;
     var root = typeof self === 'object' && self.self === self && self || typeof global === 'object' &&
         global.global === global && global || this;

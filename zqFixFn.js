@@ -1,6 +1,6 @@
 //     Zepto|jQuery.Extend.js 实现了通用fn方法。 
 
-;(function ($, undefined) {
+!(function ($, undefined) {
 	 /**
 	  *  highlight
 	  *  @file 实现了通用fn方法。

@@ -1,17 +1,15 @@
 /**
- * 该文件用于定义url工具类
-
- *
+ * 该文件用于定义url工具类 
  **/
 
-(function ($) {
+(function () {
 
 
     var URL = {
         /**
          * @summary parseQueryString 将url中的参数转换为json数据对象键值对形式的对象
          * @type {function}
-         * @param {string} queryString              - 可选参数, 如果不指定url，则默认从当前页面url中获取参数
+         * @param {string} queryString   - 可选参数, 如果不指定url，则默认从当前页面url中获取参数
          * @return {object}
          */
         parseQueryString: function (queryString) {
@@ -130,18 +128,16 @@
                             var pStr = urlParamArr[1];
                             var pArr = pStr.split('&');
                             var findFlag = false;
-
-                            $.each(pArr, function (index, item) {
+                            for(var i=0;i<pArr.length;i++){
+                                var item = pArr[i];
                                 var paramArr = item.split('=');
 
                                 if (name === paramArr[0]) {
                                     findFlag = true;
-                                    pArr[index] = name + '=' + val;
-
+                                    pArr[i] = name + '=' + val; 
                                     return false;
                                 }
-                            });
-
+                            } 
                             if (!findFlag) {
                                 url += '&' + name + '=' + val;
 
@@ -170,7 +166,7 @@
 
     };
 
-    $.URL = URL;
+    Bone.URL = URL;
 
 
-}($));
+}(this));

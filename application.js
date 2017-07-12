@@ -63,12 +63,4 @@ _.extend(Bone.Application.prototype, Bone.CommonMixin, Bone.RadioMixin, Bone.Eve
     triggerMethodOn: Bone.triggerMethodOn
 });
 
-//global export seajs
-(function (root) {
-     if (typeof define === 'function') {
-        define("Bone",function (require, exports, module) {
-            module.exports = Bone;
-        });
-    }
-
-}(window));
+ 

@@ -141,7 +141,19 @@
             elStyle.webkitTransform = elStyle.MsTransform = elStyle.msTransform = elStyle.MozTransform = elStyle.OTransform = elStyle.transform = transform;
         }
         return this;
-    }; 
+    };
+
+    $.fn.offSetWidth = function (selector) {
+        var lis = $(selector)||[];
+        var _getStyle = function (obj, attribute) {
+            return obj.currentStyle ? obj.currentStyle[attribute] : document.defaultView.getComputedStyle(obj, false)[attribute];
+        };
+        var w = 0;
+        for (var i = 0; i < lis.length; i++) {
+            w += (lis[i].offsetWidth + parseInt(_getStyle(lis[i], 'marginRight')));
+        }
+        return w;
+    };
 
     $.fn.prevAll = function (selector) {
       var prevEls = [];

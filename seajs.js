@@ -1268,7 +1268,7 @@ window.svp = window.svp || {};
 
 })(window);
 
-//seajs-text,加载单独模板文件
+//seajs-text,加载单独模板文件同域名下。
 (function(global) {
     var plugins = {};
     var uriCache = {};
@@ -1371,8 +1371,9 @@ window.svp = window.svp || {};
         var r = global.XMLHttpRequest ?
             new global.XMLHttpRequest() :
             new global.ActiveXObject("Microsoft.XMLHTTP");
+
         r.open("GET", url, true);
-        
+
         r.onreadystatechange = function() {
             if (r.readyState === 4) {
                 // Support local file

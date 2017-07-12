@@ -293,6 +293,25 @@
                 // Some browsers require that `hash` contains a leading #.
                 location.hash = '#' + fragment;
             }
+        },
+        back : function() {
+            this.go(-1);
+        },
+        forward : function() {
+            this.go(1);
+        },
+        go : function(count) {
+            // Explicitly use `back()` and `forward()` methods since `go(1)` and `go(-1)` may behave
+            switch (count) {
+                case -1:
+                    window.history.back();
+                    break;
+                case 1:
+                    window.history.forward();
+                    break;
+                default:
+                    window.history.go(count);
+            }
         }
 
     });

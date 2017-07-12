@@ -2,10 +2,7 @@
 //支持设计模式：MVC，MVP，MVVM.
 
 window.Bone  = window.Bone || {};
-if(typeof _ == 'undefined '){
-    if(window.seajs){
-       require('underscore');
-    }
+if(typeof _ == 'undefined '){ 
     throw new Error('Bone Dependency underscore >=1.8.3');
 }
 var slice = Array.prototype.slice;

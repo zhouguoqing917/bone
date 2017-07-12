@@ -1,14 +1,9 @@
 /**
  * cookie基础操作
- **/
-
-define('base/cookie',function(require, exports, module) {
-
+ **/ 
+(function (window,Bone) {
     'use strict';
     var encode = encodeURIComponent, decode = decodeURIComponent;
-    var vars = require('base/vars');
-    var util  = require('base/util');
-
     var Cookie = {
         isEnabled: false,
         /**
@@ -21,8 +16,7 @@ define('base/cookie',function(require, exports, module) {
          * @param {String} domain 域，默认为本域
          */
         set: function (name, value, expire, domain) {
-            var expires = '';
-
+            var expires = ''; 
             if (0 !== expire) {
                 var t = new Date();
                 t.setTime(t.getTime() + (expire || 24) * 3600000);
@@ -30,8 +24,7 @@ define('base/cookie',function(require, exports, module) {
             }
             var s = name + '=' + encode(value) + expires + ';path=/'
                 + (domain ? (';domain=' + domain) : '');
-            document.cookie = s;
-
+            document.cookie = s; 
             return true;
         },
 
@@ -47,7 +40,7 @@ define('base/cookie',function(require, exports, module) {
             for (var i = 0; i < arrCookie.length; i++) {
                 var item = arrCookie[i];
                 var index = item.indexOf('=');
-                var cName = item.substr(0, index);
+                var cName  = item.substr(0, index);
                 var cValue = item.substr(index + 1);
                 if (cName.trim() === name) {
                     if (name === 'SOHUSVP' || name === 'sohusvp') {
@@ -114,45 +107,7 @@ define('base/cookie',function(require, exports, module) {
                 sRet = this.deserialize(this.get(name));
             }
             return sRet;
-        },
-
-        _init : function () {
-            var domain = document.domain || '127.0.0.1';
-            var getUrlParam = function (p, u) {
-                u = u || document.location.toString();
-                var r,reg = new RegExp("(^|&|\\\\?)" + p + "=([^&]*)(&|$|#)"); 
-                if (r = u.match(reg)) return r[2];
-                return "";
-            };
-            var _mtvsrc = getUrlParam('src') || getUrlParam('SRC') || '';
-            if (_mtvsrc) {
-                Cookie.set('MTV_SRC', _mtvsrc, 86400, '.sohu.com');
-                Cookie.set('MTV_SRC', _mtvsrc, 86400, domain);
-            }
-            /*  统计用的用户唯一ID */
-            var cookieSUV   = Cookie.get('SUV') || '',
-                cookieIPLOC = Cookie.get('IPLOC') || '';
-            if (!cookieSUV || !cookieIPLOC) {
-                var _suv = util.createUUID();
-
-                //set IPLOC CN1100
-                var _url =  vars.PROTOCOL +'pv.sohu.com/suv/' + _suv;
-                util.loadScript(_url,function () {
-                    console.log("suv:"+_suv+"ck suv:"+Cookie.get('SUV')+" | IPLOC :" +Cookie.get('IPLOC'));
-                    Cookie.set('SUV', _suv, 500000, '.sohu.com');  //覆盖suv
-                    var H5UID = Cookie.get('H5UID') || '';
-                    if (!H5UID) {
-                        Cookie.set('H5UID', _suv, 500000, domain);
-                    }
-                    cookieSUV = Cookie.get('SUV') || '';
-                });
-
-            }
-            return cookieSUV;
-        }
-    };
-    Cookie.test();
-    Cookie._init();
-    svp.Cookie = Cookie;
-    module.exports = Cookie;
-});
+        } 
+    }; 
+    Bone.Cookie = Cookie;
+}(window.Bone||{}));
